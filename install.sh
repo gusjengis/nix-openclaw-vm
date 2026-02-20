@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-TARGET_USER="${1:-openclaw}"
+TARGET_USER="${1:-OpenClaw}"
 TARGET_GROUP="$(id -gn "$TARGET_USER")"
 
 NIXOS_DIR="/etc/nixos"
