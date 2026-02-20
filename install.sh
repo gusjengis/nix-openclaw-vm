@@ -5,12 +5,12 @@ TARGET_USER="${1:-openclaw}"
 TARGET_GROUP="$(id -gn "$TARGET_USER")"
 
 NIXOS_DIR="/etc/nixos"
-CONFIG_FILE="$NIXOS_DIR/configuration.nix"
-HOME_DIR="/home/$TARGET_USER"
-HOME_MANAGER_DIR="$HOME_DIR/.home-manager"
-HOME_MODULES_FILE="$HOME_MANAGER_DIR/modules.nix"
 NIX_MODULES_DIR="/etc/nix-modules"
-SYSTEM_MODULES_DIR="$NIX_MODULES_DIR/nixosModules"
+SYSTEM_MODULES_DIR="$NIX_MODULES_DIR/systemModules"
+HOME_DIR="/home/$TARGET_USER"
+HOME_MANAGER_DIR="$HOME_DIR/nix-openclaw-home"
+CONFIG_FILE="$NIXOS_DIR/configuration.nix"
+HOME_MODULES_FILE="$NIX_MODULES_DIR/home-modules.nix"
 
 export NIX_CONFIG="experimental-features = nix-command flakes"
 
@@ -381,13 +381,11 @@ generate_home_modules_content() {
 main() {
   local SYSTEM_CONFIG_CONTENT HOME_MODULES_CONTENT
 
-  sudo chown -R "$TARGET_USER:$TARGET_GROUP" "$NIXOS_DIR"
-
   sudo rm -rf "$NIX_MODULES_DIR"
   sudo mkdir -p "$NIX_MODULES_DIR"
   echo Downloading system config...
   SYSTEM_TAR="$(mktemp)"
-  curl --fail --location https://github.com/gusjengis/nix-modules/archive/refs/heads/main.tar.gz -o "$SYSTEM_TAR"
+  curl --fail --location https://github.com/gusjengis/nix-openclaw-modules/archive/refs/heads/main.tar.gz -o "$SYSTEM_TAR"
   sudo tar -xzf "$SYSTEM_TAR" --strip-components=1 -C "$NIX_MODULES_DIR"
   rm -f "$SYSTEM_TAR"
 
@@ -402,15 +400,14 @@ main() {
 
   echo Replacing temporary system config with git clone...
   sudo rm -rf "$NIX_MODULES_DIR"
-  sudo git clone https://github.com/gusjengis/nix-modules.git "$NIX_MODULES_DIR"
-  sudo chown -R "$TARGET_USER:$TARGET_GROUP" "$NIX_MODULES_DIR"
+  sudo git clone https://github.com/gusjengis/nix-openclaw-modules.git "$NIX_MODULES_DIR"
 
-  printf '%s\n' "$SYSTEM_CONFIG_CONTENT" > "$CONFIG_FILE"
+  sudo printf '%s\n' "$SYSTEM_CONFIG_CONTENT" > "$CONFIG_FILE"
 
   rm -rf "$HOME_MANAGER_DIR"
   mkdir -p "$HOME_MANAGER_DIR"
   echo Downloading home config...
-  git clone https://github.com/gusjengis/home-manager.git "$HOME_MANAGER_DIR"
+  git clone https://github.com/gusjengis/nx-openclaw-home.git "$HOME_MANAGER_DIR"
 
   echo Generating home-manager module selections...
   HOME_MODULES_CONTENT="$(generate_home_modules_content "$HOME_MANAGER_DIR")"
