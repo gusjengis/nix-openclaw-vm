@@ -4,10 +4,10 @@ set -euo pipefail
 TARGET_USER="${1:-OpenClaw}"
 
 NIXOS_DIR="/etc/nixos"
-NIX_MODULES_DIR="/etc/nix-modules"
+NIX_MODULES_DIR="/etc/nix-openclaw-vm-modules"
 SYSTEM_MODULES_DIR="$NIX_MODULES_DIR/systemModules"
 HOME_DIR="/home/$TARGET_USER"
-HOME_MANAGER_DIR="$HOME_DIR/nix-openclaw-home"
+HOME_MANAGER_DIR="$HOME_DIR/nix-openclaw-vm-home"
 CONFIG_FILE="$NIXOS_DIR/configuration.nix"
 HOME_MODULES_FILE="$NIX_MODULES_DIR/home-modules.nix"
 
@@ -384,7 +384,7 @@ main() {
   sudo mkdir -p "$NIX_MODULES_DIR"
   echo Downloading system config...
   SYSTEM_TAR="$(mktemp)"
-  curl --fail --location https://github.com/gusjengis/nix-openclaw-modules/archive/refs/heads/main.tar.gz -o "$SYSTEM_TAR"
+  curl --fail --location https://github.com/gusjengis/nix-openclaw-vm-modules/archive/refs/heads/main.tar.gz -o "$SYSTEM_TAR"
   sudo tar -xzf "$SYSTEM_TAR" --strip-components=1 -C "$NIX_MODULES_DIR"
   rm -f "$SYSTEM_TAR"
 
@@ -397,14 +397,14 @@ main() {
 
   echo Replacing temporary system config with git clone...
   sudo rm -rf "$NIX_MODULES_DIR"
-  sudo git clone https://github.com/gusjengis/nix-openclaw-modules.git "$NIX_MODULES_DIR"
+  sudo git clone https://github.com/gusjengis/nix-openclaw-vm-modules.git "$NIX_MODULES_DIR"
 
   sudo printf '%s\n' "$SYSTEM_CONFIG_CONTENT" > "$CONFIG_FILE"
 
   rm -rf "$HOME_MANAGER_DIR"
   mkdir -p "$HOME_MANAGER_DIR"
   echo Downloading home config...
-  git clone https://github.com/gusjengis/nx-openclaw-home.git "$HOME_MANAGER_DIR"
+  git clone https://github.com/gusjengis/nx-openclaw-vm-home.git "$HOME_MANAGER_DIR"
 
   echo Generating home-manager module selections...
   HOME_MODULES_CONTENT="$(generate_home_modules_content "$HOME_MANAGER_DIR")"
