@@ -389,8 +389,6 @@ main() {
   sudo tar -xzf "$SYSTEM_TAR" --strip-components=1 -C "$NIX_MODULES_DIR"
   rm -f "$SYSTEM_TAR"
 
-  sudo chown -R "$TARGET_USER:$TARGET_GROUP" "$NIX_MODULES_DIR"
-
   echo Generating system module selections...
   SYSTEM_CONFIG_CONTENT="$(generate_system_config_content "$SYSTEM_MODULES_DIR" "$CONFIG_FILE")"
   printf '%s\n' "$SYSTEM_CONFIG_CONTENT" > "$CONFIG_FILE"
