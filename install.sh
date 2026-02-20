@@ -2,7 +2,6 @@
 set -euo pipefail
 
 TARGET_USER="${1:-OpenClaw}"
-TARGET_GROUP="$(id -gn "$TARGET_USER")"
 
 NIXOS_DIR="/etc/nixos"
 NIX_MODULES_DIR="/etc/nix-modules"
@@ -411,6 +410,7 @@ main() {
   HOME_MODULES_CONTENT="$(generate_home_modules_content "$HOME_MANAGER_DIR")"
   printf '%s\n' "$HOME_MODULES_CONTENT" > "$HOME_MODULES_FILE"
 
+  TARGET_GROUP="$(id -gn "$TARGET_USER")"
   sudo chown -R "$TARGET_USER:$TARGET_GROUP" "$HOME_DIR"
 
   echo Installing home config...

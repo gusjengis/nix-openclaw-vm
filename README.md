@@ -11,6 +11,6 @@ Instructions:
 
 2. After booting:
     ```
-    curl -fsSL https://raw.githubusercontent.com/gusjengis/nix-install-script/main/install.sh | bash
+    curl -fsSL https://raw.githubusercontent.com/gusjengis/nix-openclaw-vm/main/install.sh | bash
     ```
     - Select the modules you want to enable in the prompts
