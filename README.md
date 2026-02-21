@@ -22,4 +22,8 @@ Instructions:
 
 At this point, you should have some chat interface configured, and the bot is running and free to configure it's home environment however you direct it to. There should be a running WebUI that you can connect to that will allow you to view the history of it's configuration and activity, rollback to previous versions, manage it's execution (stop it, restart it, etc). Some of this WebUI will basically be a GUI for git and nix commands, the rest will be process management.
 
-There is also the option of remotely configuring the VM/bot using SSH and/or Waypipe. Waypipe is super cool btw, it's like remote desktop, but for single programs, and they appear on your system like native windows, [check it out](https://gitlab.freedesktop.org/mstoeckl/waypipe/). It only works with other wayland machines though, so I should also include VNC, though this requires installing a full desktop environment in the VM, these will all have to be optional modules.
+There is also the option of remotely configuring the VM/bot using SSH and/or Waypipe. Waypipe is super cool btw, it's like remote desktop, but for single programs, and they appear on your system like native windows. [Check it out](https://gitlab.freedesktop.org/mstoeckl/waypipe/).
+
+This is a mostly just a plan at the moment, I'm currently in the process of working on the install script. It's similar to one I use for quickly setting up my personal machines, but the layout of this system is a little different, so I need to adapt it. 
+
+I want to try OpenClaw for a bunch of personal applications. Along the way, I'm being careful to make sure that the basic setup is fully reproducable, so that myself and others can pretty automatically spawn new systems running OpenClaw, and this setup process never has to be repeated. 
