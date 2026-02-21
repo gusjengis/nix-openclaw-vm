@@ -1,8 +1,8 @@
-This is a work in progress. If you're coming from my resume, the project that I described is what this will become. It's all stuff I know how to do already, it's just a mtter of applying existing skills.
+This is a script that sets up a functioning OpenClaw instance in a VM. Intended to work with a minimal NixOS ISO.
+This is a work in progress. If you're coming from my resume, the project that I described is what this will become. It's all stuff I know how to do already, it's just a matter of applying existing skills.
 
 I'm documenting the stops that work for me as I take them.
 
-This is a script that sets up a functioning OpenClaw instance in a VM. Intended to work with a fresh "No Desktop" NixOS install. 
 
 Instructions:
 
@@ -15,7 +15,7 @@ Instructions:
     ```
     - The Script will install the OS into the VMs disk automatically
     - Then you will be prompted to select the modules/capabilities you want to enable
-    - If you have enabled Tailscale, you will be asked for you auth key, so that this machine can be added to the tailscale network before the bot is up and running. The key will not be stored on the system.
+    - If you have enabled Tailscale, you will be asked for you auth key, so that this machine can be added to the Tailscale network before the bot is up and running. The key will not be stored on the system.
     - When everything is configured and installed, the machine will reboot
 
 3. After installation, during first boot, follow the prompts and walk through the OpenClaw setup
@@ -26,6 +26,6 @@ There is also the option of remotely configuring the VM/bot using SSH and/or Way
 
 This is a mostly just a plan at the moment, I'm currently in the process of working on the install script. It's similar to one I use for quickly setting up my personal machines, but the layout of this system is a little different, so I need to adapt it. 
 
-I want to try OpenClaw for a bunch of personal applications. Along the way, I'm being careful to make sure that the basic setup is fully reproducable, so that myself and others can pretty automatically spawn new systems running OpenClaw, and this setup process never has to be repeated. 
+I want to try OpenClaw for a bunch of personal applications. Along the way, I'm being careful to make sure that the basic setup is fully reproducible, so that myself and others can pretty automatically spawn new systems running OpenClaw, and this setup process never has to be repeated. 
 
-While working on this, I've discovered that I pretty easy to make custom NixOS installer ISOs. This means that I can create one that comes preinstalled setup to automatically reun this script. If I define a bunch of reasonable default settings, this will enable someone to create a VM, boot it with this ISO, walk away for a few minutes, and come back to a freshly installed system prompting them to go through the OpenClaw initialization. Pretty slick. I'll see what I can do abou automating the OpenClaw init when I get to it, but I'm pretty sure it's unavoidable.
+While working on this, I've discovered that it's pretty easy to make custom NixOS installer ISOs. This means that I can create one that comes pre-installed setup to automatically run this script. If I define a bunch of reasonable default settings, this will enable someone to create a VM, boot it with this ISO, walk away for a few minutes, and come back to a freshly installed system prompting them to go through the OpenClaw initialization. Pretty slick. I'll see what I can do about automating the OpenClaw init when I get to it, but I'm pretty sure it's unavoidable.
