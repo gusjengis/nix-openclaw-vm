@@ -1,4 +1,4 @@
-I'm using the bootstapping that I already have working for my personal NixOS setup as base for my OpenClaw VM project. If you're coming here from my resume, this is something that will be working soon enough. I've tested the pieces in isolation, it's just a matter of putting them together.
+This is a work in progress. If you're coming from my resume, the project that I described is what this will become. It's all stuff I know how to do already, it's just a mtter of applying existing skills.
 
 I'm documenting the stops that work for me as I take them.
 
@@ -13,4 +13,13 @@ Instructions:
     ```
     curl -fsSL https://raw.githubusercontent.com/gusjengis/nix-openclaw-vm/main/install.sh | bash
     ```
-    - Select the modules you want to enable in the prompts
+    - The Script will install the OS into the VMs disk automatically
+    - Then you will be prompted to select the modules/capabilities you want to enable
+    - If you have enabled Tailscale, you will be asked for you auth key, so that this machine can be added to the tailscale network before the bot is up and running. The key will not be stored on the system.
+    - When everything is configured and installed, the machine will reboot
+
+3. After installation, during first boot, follow the prompts and walk through the OpenClaw setup
+
+At this point, you should have some chat interface configured, and the bot is running and free to configure it's home environment however you direct it to. There should be a running WebUI that you can connect to that will allow you to view the history of it's configuration and activity, rollback to previous versions, manage it's execution (stop it, restart it, etc). Some of this WebUI will basically be a GUI for git and nix commands, the rest will be process management.
+
+There is also the option of remotely configuring the VM/bot using SSH and/or Waypipe. Waypipe is super cool btw, it's like remote desktop, but for single programs, and they appear on your system like native windows, [check it out](https://gitlab.freedesktop.org/mstoeckl/waypipe/). It only works with other wayland machines though, so I should also include VNC, though this requires installing a full desktop environment in the VM, these will all have to be optional modules.
